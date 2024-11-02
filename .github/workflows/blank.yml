@@ -1,0 +1,6 @@
+name: firstAction
+on: workflow_dispatch
+jobs:
+  first-job:
+    runs-on: ubuntu-22.04
+  
