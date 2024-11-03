@@ -12,11 +12,11 @@ jobs:
       - name: Install Node Js
         uses: actions/setup-node@v4.1.0
         with:
-          node-version:20.18.0
+          node-version: 20.18.0
 
       - name: First Action Try
         run: echo "Hello"
-      
+ 
       -name: Show Node Version
         run: node -v
       
