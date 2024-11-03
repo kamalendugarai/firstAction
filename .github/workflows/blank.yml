@@ -1,5 +1,6 @@
 name: firstAction
-on: workflow_dispatch
+# on: workflow_dispatch
+on: push  
 jobs:
   first-job:
     runs-on: ubuntu-22.04
