@@ -17,11 +17,11 @@ jobs:
       - name: First Action Try
         run: echo "Hello"
  
-      -name: Show Node Version
-        run: node -v
+      # -name: Show Node Version
+      #   run: node -v
       
-      - name: Install All Packages
-        run: npm ci
+      # - name: Install All Packages
+      #   run: npm ci
         
 
                 
