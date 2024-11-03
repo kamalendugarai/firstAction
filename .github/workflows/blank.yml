@@ -1,5 +1,4 @@
 name: firstAction
-# on: workflow_dispatch
 on: push  
 jobs:
   first-job:
