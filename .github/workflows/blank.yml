@@ -5,5 +5,5 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: First Action Try
-        run: echos "Hello"
+        run: echo "Hello"
   
