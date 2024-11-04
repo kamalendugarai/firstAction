@@ -34,3 +34,10 @@ jobs:
 
             - name: Check Node Version
               run: node -v
+            
+            - name: should Return Date
+              id: date
+              run: echo "currentDate=$(date +'Y%-m%-d%')"
+
+            - name: Create a New Checkpoint Branch
+              run: git pull origin main && git checkout -b best-known-good-version-${{steps.date.outputs.currentDate}} && git checkout -
