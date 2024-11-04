@@ -20,6 +20,10 @@ jobs:
     
     newJob1:
         runs-on: ubuntu-22.04
+        permissions:
+          actions: write
+          attestations: read
+          checks: read
         steps:
             - name: Checkout to the repo
               uses: actions/checkout@v4.2.2
