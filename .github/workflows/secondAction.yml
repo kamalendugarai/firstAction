@@ -46,7 +46,7 @@ jobs:
             
             - name: should Return Date
               id: date
-              run: echo "currentDate=$(date + 'Y%-m%-d%')"
+              run: echo "currentDate=$(date +'%Y-%m-%d')"
             
             - name: Check Output
               run: echo ${{steps}}
