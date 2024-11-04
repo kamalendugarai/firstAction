@@ -1,0 +1,36 @@
+name: Second Action
+on: [push, workflow_dispatch]
+jobs:
+    newJob:
+        runs-on: ubuntu-22.04
+        steps:
+            - name: Checkout to the repo
+              uses: action/checkout@v4.2.2
+              with:
+                ref: main
+            
+            - name: Install Node Js 20.18.0
+              uses: action/node/setup-node@4.1.0
+
+            - name: Printing on console
+              run: print("Second Action")
+
+            - name: Check Node Version
+              run: node -v
+    
+    newJob1:
+        runs-on: ubuntu-22.04
+        steps:
+            - name: Checkout to the repo
+              uses: action/checkout@v4.2.2
+              with:
+                ref: main
+            
+            - name: Install Node Js 20.18.0
+              uses: action/node/setup-node@4.1.0
+
+            - name: Printing on console
+              run: print("Second Action")
+
+            - name: Check Node Version
+              run: node -v
