@@ -46,6 +46,7 @@ jobs:
             
             - id: set-date
               name: should Return Date
+              shell: bash
               run: echo "currentDate=$(date +'%Y-%m-%d')"
             
             - name: Check Output
