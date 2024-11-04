@@ -10,7 +10,7 @@ jobs:
                 ref: main
             
             - name: Install Node Js 20.18.0
-              uses: actions/setup-node@4.1.0
+              uses: actions/setup-node@v4.1.0
 
             - name: Printing on console
               run: print("Second Action")
@@ -27,7 +27,7 @@ jobs:
                 ref: main
             
             - name: Install Node Js 20.18.0
-              uses: actions/setup-node@4.1.0
+              uses: actions/setup-node@v4.1.0
 
             - name: Printing on console
               run: print("Second Action")
