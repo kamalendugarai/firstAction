@@ -1,7 +1,9 @@
 name: Second Action
 on: [push, workflow_dispatch]
+
 jobs:
     newJob:
+        
         runs-on: ubuntu-22.04
         steps:
             - name: Checkout to the repo
@@ -21,9 +23,11 @@ jobs:
     newJob1:
         runs-on: ubuntu-22.04
         permissions:
-          pull-requests: write
-          issues: write
-          repository-projects: write
+          actions: write
+          attestations: read
+          checks: read
+          contents: write
+  
         
         steps:
             - name: Checkout to the repo
