@@ -43,11 +43,16 @@ jobs:
 
             - name: Check Node Version
               run: node -v
-            
-            - id: set-date
-              name: should Return Date
+
+            - name: generate secret
+              id: generate-secret
               shell: bash
-              run: echo "currentDate=$(date +'%Y-%m-%d')"
+              run: echo "HHHHHH"
+            
+            # - id: set-date
+            #   name: should Return Date
+            #   shell: bash
+            #   run: echo "currentDate=$(date +'%Y-%m-%d')"
             
             - name: Check Output
               run: echo ${{toJSON(steps)}}
