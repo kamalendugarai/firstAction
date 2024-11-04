@@ -45,7 +45,7 @@ jobs:
               run: node -v
 
             - name: generate secret
-              id: generate-secret
+              id: 'generate-secret'
               shell: bash
               run: echo "HHHHHH"
             
