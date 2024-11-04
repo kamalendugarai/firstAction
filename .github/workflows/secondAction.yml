@@ -5,12 +5,12 @@ jobs:
         runs-on: ubuntu-22.04
         steps:
             - name: Checkout to the repo
-              uses: action/checkout@v4.2.2
+              uses: actions/checkout@v4.2.2
               with:
                 ref: main
             
             - name: Install Node Js 20.18.0
-              uses: action/node/setup-node@4.1.0
+              uses: actions/setup-node@4.1.0
 
             - name: Printing on console
               run: print("Second Action")
@@ -22,12 +22,12 @@ jobs:
         runs-on: ubuntu-22.04
         steps:
             - name: Checkout to the repo
-              uses: action/checkout@v4.2.2
+              uses: actions/checkout@v4.2.2
               with:
                 ref: main
             
             - name: Install Node Js 20.18.0
-              uses: action/node/setup-node@4.1.0
+              uses: actions/setup-node@4.1.0
 
             - name: Printing on console
               run: print("Second Action")
