@@ -44,8 +44,8 @@ jobs:
             - name: Check Node Version
               run: node -v
             
-            - name: should Return Date
-              id: setdate
+            - id: setdate
+              name: should Return Date
               run: echo "currentDate=$(date +'%Y-%m-%d')"
             
             - name: Check Output
