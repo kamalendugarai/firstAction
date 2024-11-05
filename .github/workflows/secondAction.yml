@@ -43,18 +43,17 @@ jobs:
             - name: Check Node Version
               run: node -v
 
-            - name: generate secret
-              id: 'generate-secret'
+            - id: 'generate-secret'
               shell: bash
               run: echo "HHHHHH"
             
-            # - id: set-date
-            #   name: should Return Date
-            #   shell: bash
-            #   run: echo "currentDate=$(date +'%Y-%m-%d')"
+            - id: set-date
+              name: should Return Date
+              shell: bash
+              run: echo "currentDate=$(date +'%Y-%m-%d')"
             
             - name: Check Output
               run: echo ${{toJSON(steps)}}
 
-            # - name: Create a New Checkpoint Branch
-            #   run: git pull origin main && git checkout -b best-known-good-version-${{steps.date.outputs.currentDate}} && git push origin best-known-good-version-${{steps.date.outputs.currentDate}} && git checkout -
+            - name: Create a New Checkpoint Branch
+              run: git pull origin main && git checkout -b best-known-good-version-${{steps.date.outputs.currentDate}} && git push origin best-known-good-version-${{steps.date.outputs.currentDate}} && git checkout -
