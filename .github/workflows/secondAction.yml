@@ -3,7 +3,6 @@ on: [push, workflow_dispatch]
 
 jobs:
     newJob:
-        
         runs-on: ubuntu-22.04
         steps:
             - name: Checkout to the repo
