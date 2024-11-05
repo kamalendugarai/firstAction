@@ -1,5 +1,10 @@
 name: Second Action
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
 
 jobs:
     newJob:
@@ -50,7 +55,8 @@ jobs:
             - id: set-date
               name: should Return Date
               shell: bash
-              run: echo "currentDate=$(date +'%Y-%m-%d')"
+            #  run: echo "currentDate=$(date +'%Y-%m-%d')" 
+              run: echo "currentDate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
             
             - name: Check Output
               run: echo ${{toJSON(steps)}}
