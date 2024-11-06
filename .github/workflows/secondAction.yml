@@ -52,9 +52,11 @@ jobs:
               name: ======== Check for Pull Request =========
               shell: bash
               run: |
+                git log --pretty=format:%s -1 --abbrev-commit
                 echo commentString = git log --pretty=format:%s -1 --abbrev-commit >> $GITHUB_OUTPUT
                 echo "pullRequest = ${{contains(steps.checkPullRequest.outputs.commentString, 'pull_request')}}" >> $GITHUB_OUTPUT
                 echo ${{toJson(steps.checkPullRequest.outputs)}}
+
                 # if [[ ${{steps.checkPullRequest.outputs.pullRequest}} == true ]]; 
                 # then
                 #   echo "pullRequestHash = ${{steps.checkPullRequest.outputs.pullRequest}}" >> $GITHUB_OUTPUT
@@ -74,9 +76,9 @@ jobs:
                 echo ${{steps.checkPullRequest.outputs.pullRequest}}
                 echo ${{steps.checkPullRequest.outputs.pullRequestHash}}
 
-            - name: Create a New Checkpoint Branch
-              run: |
-                git pull origin main
-                git checkout -b best-known-good-version-${{steps.set-date.outputs.currentDate}}
-                git push origin best-known-good-version-${{steps.set-date.outputs.currentDate}}
-                git checkout -
+            # - name: Create a New Checkpoint Branch
+            #   run: |
+            #     git pull origin main
+            #     git checkout -b best-known-good-version-${{steps.set-date.outputs.currentDate}}
+            #     git push origin best-known-good-version-${{steps.set-date.outputs.currentDate}}
+            #     git checkout -
