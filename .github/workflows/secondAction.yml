@@ -54,6 +54,8 @@ jobs:
               run: |
                 git log --pretty=format:%s -1 --abbrev-commit
                 echo commentString = git log --pretty=format:%s -1 --abbrev-commit >> $GITHUB_OUTPUT
+                ${{steps.checkPullRequest.outputs.commentString}}
+                
                 echo "pullRequest = ${{contains(steps.checkPullRequest.outputs.commentString, 'pull_request')}}" >> $GITHUB_OUTPUT
                 echo ${{toJson(steps.checkPullRequest.outputs)}}
 
