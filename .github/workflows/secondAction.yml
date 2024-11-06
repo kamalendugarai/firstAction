@@ -89,6 +89,7 @@ jobs:
           if(git show-ref best-known-good-version-${{steps.set-date.outputs.currentDate}});
           then
             echo "Branch already exists - pushing the update" 
+            git checkout best-known-good-version-${{steps.set-date.outputs.currentDate}}
             git push origin best-known-good-version-${{steps.set-date.outputs.currentDate}}
           else
             echo "Branch does not exist - creating the branch"
