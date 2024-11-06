@@ -48,18 +48,27 @@ jobs:
             - name: Check Node Version
               run: node -v
 
-            - id: 'generate-secret'
+            - id: 'checkPullRequest'
+              name: ======== Check for Pull Request =========
               shell: bash
-              run: echo "HHHHHH"
+              run: |
+                echo commentString = git log --pretty=format:%s -1 --abbrev-commit >> $GITHUB_OUTPUT
+                echo "pullRequest = ${{contains(steps.checkPullRequest.outputs.commentString, 'pull_request')}} >> $GITHUB_OUTPUT
+                if [[ ${{steps.checkPullRequest.outputs.pullRequest}} == "true" ]]; then
+                echo "pullRequestHash = ${{steps.checkPullRequest.outputs.pullRequest}}" >> $GITHUB_OUTPUT else
+                echo "pullRequestHash = ''" >> $GITHUB_OUTPUT
             
             - id: set-date
               name: should Return Date
               shell: bash
-            #  run: echo "currentDate=$(date +'%Y-%m-%d')" 
               run: echo "currentDate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
             
             - name: Check Output
-              run: echo ${{steps.set-date.outputs.currentDate}}
+              run: |
+                echo ${{steps.set-date.outputs.currentDate}}
+                echo ${{steps.checkPullRequest.outputs.commentString}}
+                echo ${{steps.checkPullRequest.outputs.pullRequest}}
+                echo ${{steps.checkPullRequest.outputs.pullRequestHash}}
 
             - name: Create a New Checkpoint Branch
               run: |
