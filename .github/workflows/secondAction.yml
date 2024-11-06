@@ -54,10 +54,13 @@ jobs:
               run: |
                 echo commentString = git log --pretty=format:%s -1 --abbrev-commit >> $GITHUB_OUTPUT
                 echo "pullRequest = ${{contains(steps.checkPullRequest.outputs.commentString, 'pull_request')}}" >> $GITHUB_OUTPUT
-                if [[ ${{steps.checkPullRequest.outputs.pullRequest}} == "true" ]]; then
-                  echo "pullRequestHash = ${{steps.checkPullRequest.outputs.pullRequest}}" >> $GITHUB_OUTPUT else
-                  echo "pullRequestHash = ''" >> $GITHUB_OUTPUT
-                fi  
+                echo ${{steps.checkPullRequest.outputs.pullRequest}}
+                # if [[ ${{steps.checkPullRequest.outputs.pullRequest}} == true ]]; 
+                # then
+                #   echo "pullRequestHash = ${{steps.checkPullRequest.outputs.pullRequest}}" >> $GITHUB_OUTPUT
+                # else
+                #   echo "pullRequestHash = ''" >> $GITHUB_OUTPUT
+                # fi  
             
             - id: set-date
               name: should Return Date
