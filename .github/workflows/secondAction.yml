@@ -82,7 +82,12 @@ jobs:
           git fetch --all --prune
           git pull origin main 
 
-          if(git show-ref refs/heads/best-known-good-version-${{steps.set-date.outputs.currentDate}}); then
+          # Check if the branch exists 
+          # If it does, push the update
+          # If it doesn't, create the branch and push it
+
+          if(git show-ref best-known-good-version-${{steps.set-date.outputs.currentDate}});
+          then
             echo "Branch already exists - pushing the update" 
             git push origin best-known-good-version-${{steps.set-date.outputs.currentDate}}
           else
