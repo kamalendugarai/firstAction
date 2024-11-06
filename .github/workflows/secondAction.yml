@@ -80,7 +80,8 @@ jobs:
 
             - name: Create a New Checkpoint Branch
               run: |
-                git pull origin main
+                git fetch --all --prune
+                git pull origin main 
                 git checkout -b best-known-good-version-${{steps.set-date.outputs.currentDate}}
                 git push origin best-known-good-version-${{steps.set-date.outputs.currentDate}}
                 git checkout -
