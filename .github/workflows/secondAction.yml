@@ -7,81 +7,88 @@ on:
   workflow_dispatch:
 
 jobs:
-    newJob:
-        runs-on: ubuntu-22.04
-        steps:
-            - name: Checkout to the repo
-              uses: actions/checkout@v4.2.2
-              with:
-                ref: main
-            
-            - name: Install Node Js 20.18.0
-              uses: actions/setup-node@v4.1.0
+  newJob:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout to the repo
+        uses: actions/checkout@v4.2.2
+        with:
+          ref: main
 
-            - name: Printing on console
-              run: echo "Second Action"
+      - name: Install Node Js 20.18.0
+        uses: actions/setup-node@v4.1.0
 
-            - name: Check Node Version
-              run: node -v
-    
-    newJob1:
-        runs-on: ubuntu-22.04
-        permissions:
-          actions: write
-          attestations: read
-          checks: read
-          contents: write
-  
-        
-        steps:
-            - name: Checkout to the repo
-              uses: actions/checkout@v4.2.2
-              with:
-                ref: main
-            
-            - name: Install Node Js 20.18.0
-              uses: actions/setup-node@v4.1.0
+      - name: Printing on console
+        run: echo "Second Action"
 
-            - name: Printing on console
-              run: echo "Second Action"
+      - name: Check Node Version
+        run: node -v
 
-            - name: Check Node Version
-              run: node -v
+  newJob1:
+    runs-on: ubuntu-22.04
+    permissions:
+      actions: write
+      attestations: read
+      checks: read
+      contents: write
 
-            - id: 'checkPullRequest'
-              name: ======== Check for Pull Request =========
-              shell: bash
-              run: |
-                git log --pretty=format:%s -1 --abbrev-commit
-                echo "commentString=$(git log --pretty=format:%s -1 --abbrev-commit)" >> $GITHUB_OUTPUT
-                echo ${{toJson(steps.checkPullRequest)}}
+    steps:
+      - name: Checkout to the repo
+        uses: actions/checkout@v4.2.2
+        with:
+          ref: main
 
-                echo "pullRequest=${{contains(steps.checkPullRequest.outputs.commentString, 'pull_request')}}" >> $GITHUB_OUTPUT
-                echo ${{toJson(steps.checkPullRequest.outputs)}}
+      - name: Install Node Js 20.18.0
+        uses: actions/setup-node@v4.1.0
 
-                if [[ ${{steps.checkPullRequest.outputs.pullRequest}}==true ]]; 
-                then
-                  echo "pullRequestHash=${{steps.checkPullRequest.outputs.pullRequest}}" >> $GITHUB_OUTPUT
-                else
-                  echo "pullRequestHash='This is not pull request'" >> $GITHUB_OUTPUT
-                fi  
-            
-            - id: set-date
-              name: should Return Date
-              shell: bash
-              run: echo "currentDate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-            
-            - name: Check Output
-              run: |
-                echo ${{steps.set-date.outputs.currentDate}}
-                echo ${{steps.checkPullRequest.outputs.commentString}}
-                echo ${{steps.checkPullRequest.outputs.pullRequest}}
-                echo ${{steps.checkPullRequest.outputs.pullRequestHash}}
+      - name: Printing on console
+        run: echo "Second Action"
 
-            - name: Create a New Checkpoint Branch
-              run: |
-                git fetch --all --prune
-                git pull origin main 
-                git checkout -b best-known-good-version-${{steps.set-date.outputs.currentDate}}
-                git push origin best-known-good-version-${{steps.set-date.outputs.currentDate}}
-                git checkout -
+      - name: Check Node Version
+        run: node -v
+
+      - id: 'checkPullRequest'
+        name: ======== Check for Pull Request =========
+        shell: bash
+        run: |
+          git log --pretty=format:%s -1 --abbrev-commit
+          echo "commentString=$(git log --pretty=format:%s -1 --abbrev-commit)" >> $GITHUB_OUTPUT
+          echo ${{toJson(steps.checkPullRequest)}}
+
+          echo "pullRequest=${{contains(steps.checkPullRequest.outputs.commentString, 'pull_request')}}" >> $GITHUB_OUTPUT
+          echo ${{toJson(steps.checkPullRequest.outputs)}}
+
+          if [[ ${{steps.checkPullRequest.outputs.pullRequest}}==true ]]; 
+          then
+            echo "pullRequestHash=${{steps.checkPullRequest.outputs.pullRequest}}" >> $GITHUB_OUTPUT
+          else
+            echo "pullRequestHash='This is not pull request'" >> $GITHUB_OUTPUT
+          fi
+
+      - id: set-date
+        name: should Return Date
+        shell: bash
+        run: echo "currentDate=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Check Output
+        run: |
+          echo ${{steps.set-date.outputs.currentDate}}
+          echo ${{steps.checkPullRequest.outputs.commentString}}
+          echo ${{steps.checkPullRequest.outputs.pullRequest}}
+          echo ${{steps.checkPullRequest.outputs.pullRequestHash}}
+
+      - name: Create a New Checkpoint Branch
+        run: |
+          git fetch --all --prune
+          git pull origin main 
+
+          if(git show-ref refs/heads/best-known-good-version-${{steps.set-date.outputs.currentDate}}); then
+            echo "Branch already exists - pushing the update" 
+            git push origin best-known-good-version-${{steps.set-date.outputs.currentDate}}
+          else
+            echo "Branch does not exist - creating the branch"
+            git checkout -b best-known-good-version-${{steps.set-date.outputs.currentDate}}
+            git push origin best-known-good-version-${{steps.set-date.outputs.currentDate}}
+          fi
+
+          git checkout -
