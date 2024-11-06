@@ -51,7 +51,7 @@ jobs:
             - id: 'checkPullRequest'
               name: ======== Check for Pull Request =========
               shell: bash
-              run: echo "commentString = $(git log --pretty=format:%s -1 --abbrev-commit)" >> $GITHUB_OUTPUT
+              run: echo "commentString=$(git log --pretty=format:%s -1 --abbrev-commit)" >> $GITHUB_OUTPUT
                 # git log --pretty=format:%s -1 --abbrev-commit
                 # echo "commentString = $(git log --pretty=format:%s -1 --abbrev-commit)" >> $GITHUB_OUTPUT
                 # echo ${{toJson(steps.checkPullRequest)}}
