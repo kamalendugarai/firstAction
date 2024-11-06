@@ -59,11 +59,11 @@ jobs:
                 echo "pullRequest=${{contains(steps.checkPullRequest.outputs.commentString, 'pull_request')}}" >> $GITHUB_OUTPUT
                 echo ${{toJson(steps.checkPullRequest.outputs)}}
 
-                if [[ ${{steps.checkPullRequest.outputs.pullRequest}} == true ]]; 
+                if [[ ${{steps.checkPullRequest.outputs.pullRequest}}==true ]]; 
                 then
-                  echo "pullRequestHash = ${{steps.checkPullRequest.outputs.pullRequest}}" >> $GITHUB_OUTPUT
+                  echo "pullRequestHash=${{steps.checkPullRequest.outputs.pullRequest}}" >> $GITHUB_OUTPUT
                 else
-                  echo "pullRequestHash = 'This is not pull request'" >> $GITHUB_OUTPUT
+                  echo "pullRequestHash='This is not pull request'" >> $GITHUB_OUTPUT
                 fi  
             
             - id: set-date
