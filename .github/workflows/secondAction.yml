@@ -112,4 +112,4 @@ jobs:
             echo "This is not a pull request"
           fi
 
-          git checkout -
+          git checkout main
