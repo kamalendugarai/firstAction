@@ -110,5 +110,6 @@ jobs:
             fi
           else
             echo "This is not a pull request"
+          fi
 
           git checkout -
