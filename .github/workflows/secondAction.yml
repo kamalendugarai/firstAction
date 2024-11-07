@@ -2,31 +2,13 @@ name: Second Action
 on:
   push:
     branches:
-      - main
+      - '!main'
 
-  workflow_dispatch:
+  workflow_dispatch: null
 
 jobs:
-  newJob:
+  SetAllUp:
     runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout to the repo
-        uses: actions/checkout@v4.2.2
-        with:
-          ref: main
-
-      - name: Install Node Js 20.18.0
-        uses: actions/setup-node@v4.1.0
-
-      - name: Printing on console
-        run: echo "Second Action"
-
-      - name: Check Node Version
-        run: node -v
-
-  newJob1:
-    runs-on: ubuntu-22.04
-    needs: newJob
     permissions:
       actions: write
       attestations: read
@@ -34,22 +16,31 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout to the repo
+      - name: Install Node Js from .nvmrc
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version-file: .nvmrc
+          architecture: x64
+
+      - name: Check Node and NPM Version
+        run: |
+          echo "Node - $(node -v)"
+          echo "NPM - $(npm -v)"
+
+      - name: Checkout to the Repository
         uses: actions/checkout@v4.2.2
         with:
-          ref: main
+          # Fetch all history for all tags and branches
+          fetch-depth: 0
 
-      - name: Install Node Js 20.18.0
-        uses: actions/setup-node@v4.1.0
+      - name: Install Dependencies
+        run: npm ci
 
-      - name: Printing on console
-        run: echo "Second Action"
+      - name: Run  Playwright tests
+        run: npx playwright test
 
-      - name: Check Node Version
-        run: node -v
-
-      - id: 'checkPullRequest'
-        name: ======== Check for Pull Request =========
+      - name: Check for Pull Request ["pull_request within commit message"]
+        id: 'checkPullRequest'
         shell: bash
         run: |
           git log --pretty=format:%s -1 --abbrev-commit
@@ -85,6 +76,9 @@ jobs:
           echo ${{steps.checkPullRequest.outputs.commentString}}
           echo ${{steps.checkPullRequest.outputs.pullRequest}}
           echo ${{steps.checkPullRequest.outputs.pullRequestHash}}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
 
       - name: Create a New Checkpoint Branch
         run: |
