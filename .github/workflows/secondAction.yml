@@ -54,15 +54,23 @@ jobs:
         run: |
           git log --pretty=format:%s -1 --abbrev-commit
           echo "commentString=$(git log --pretty=format:%s -1 --abbrev-commit)" >> $GITHUB_OUTPUT
+          echo *************************************************
           echo ${{toJson(steps.checkPullRequest)}}
 
+
+          echo *************************************************
           echo "pullRequest=${{contains(steps.checkPullRequest.outputs.commentString, 'pull_request')}}" >> $GITHUB_OUTPUT
+          echo *************************************************
+
           echo ${{toJson(steps.checkPullRequest.outputs)}}
+          echo *************************************************
 
           if [[ ${{steps.checkPullRequest.outputs.pullRequest}}==true ]]; 
           then
+            echo *************************************************
             echo "pullRequestHash=${{steps.checkPullRequest.outputs.pullRequest}}" >> $GITHUB_OUTPUT
           else
+            echo *************************************************
             echo "pullRequestHash='This is not pull request'" >> $GITHUB_OUTPUT
           fi
 
