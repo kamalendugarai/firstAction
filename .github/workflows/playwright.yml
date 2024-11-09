@@ -9,12 +9,23 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-22.04
     steps:
+      - name: Install Node Js from .nvmrc
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version-file: .nvmrc
+          architecture: x64
+
+      - name: Check Node and NPM Version
+        run: |
+          echo "Node - $(node -v)"
+          echo "NPM - $(npm -v)"
+
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - name: Install dependencies
-        run: npm ci && npm run dev && sleep 60  && curl http://127.0.0.1:3000 -I
+        run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
