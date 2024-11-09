@@ -9,6 +9,12 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+
+      - name: Checkout
+        run: git fetch --all --prune && git checkout 20241107-kamalendu-01 && git pull origin 20241107-kamalendu-01
+
       - name: Install Node Js from .nvmrc
         uses: actions/setup-node@v4.1.0
         with:
@@ -20,10 +26,6 @@ jobs:
           echo "Node - $(node -v)"
           echo "NPM - $(npm -v)"
 
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright Browsers
