@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "npx playwright test",
+    "testPlaywright": "concurrently \"npm run wait5Secs && npm run test && kill -9 $(pidof node)\" \"npm run dev\"",
+    "wait5secs": "node -e 'setTimeout(() => { console.log(\"** Waiting 5 Seconds to Run Dev Server ***\"); }, 5000);'"
   },
   "dependencies": {
     "next": "15.0.2",
@@ -18,6 +21,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "concurrently": "^9.1.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
     "postcss": "^8",
