@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "npx playwright test",
-    "testPlaywright": "concurrently \"npm run wait5Secs && npm run test && kill -9 $(pidof node)\" \"npm run dev\"",
-    "wait5secs": "node -e 'setTimeout(() => { console.log(\"** Waiting 5 Seconds to Run Dev Server ***\"); }, 5000);'"
+    "wait5Secs": "node -e 'setTimeout(() => { console.log(\"** Waiting 5 Seconds to Run Dev Server ***\"); }, 5000);'",
+    "testPlaywright": "concurrently \"npm run wait5Secs && npm run test && kill -9 $(pidof node)\" \"npm run dev\""
   },
   "dependencies": {
     "next": "15.0.2",
